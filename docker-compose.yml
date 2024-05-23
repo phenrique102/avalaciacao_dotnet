@@ -1,0 +1,53 @@
+version: '3.4'
+
+networks:
+  net_bridge:
+      driver: bridge
+
+services:
+  api:
+    image: ${DOCKER_REGISTRY-}api
+    build:
+      context: .
+      dockerfile: src/Api/Dockerfile
+    networks:
+      - net_bridge
+  db:
+    image: mysql
+    restart: always
+    networks:
+      - net_bridge
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: dY4HLYh8bvV89oaM
+      MYSQL_DATABASE: academia_db
+    healthcheck:
+       test: ["CMD", 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-p$$MYSQL_ROOT_PASSWORD' ]
+       timeout: 20s
+       retries: 10
+  migration:
+    container_name: flyway_academia_container
+    image: flyway/flyway
+    command:  >
+        migrate && tail -F anything
+    networks:
+      - net_bridge
+    volumes:
+      - ./db/flyway:/flyway/conf
+      - ./db/migration:/flyway/sql
+    depends_on:
+      db:
+        condition: service_healthy
+  manager:
+    container_name: phpmyadmin_container
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    networks:
+      - net_bridge
+    environment:
+      - PMA_HOST=db
+      - PMA_PORT=3306 
+  
