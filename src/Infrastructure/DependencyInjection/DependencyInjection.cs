@@ -9,6 +9,7 @@ namespace Infrastructure.DependencyInjection
         {
             services.AddIoCLibrary();
             services.AddIoCRepository(configurationManager);
+            services.AddIoCAuthentication(configurationManager);
         }
     }
 }

@@ -10,6 +10,11 @@ namespace Infrastructure.Repositories
     {
         private readonly MySqlConnection _connection = connection;
 
+        public Usuario? GetPorEmail(string email)
+        {
+            return _connection.QueryFirstOrDefault<Usuario>("SELECT * FROM Usuario WHERE DsEmail = @DsEmail", new { DsEmail = email });
+        }
+
         public Usuario? GetPorEmailNome(string email, string nome)
         {
             return _connection.QueryFirstOrDefault<Usuario>("SELECT * FROM Usuario WHERE DsEmail = @DsEmail AND DsNome = @DsNome", new { DsEmail = email, DsNome = nome });

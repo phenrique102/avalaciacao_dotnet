@@ -20,6 +20,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "migration", "migration", "{1292B17C-5CD6-4781-8027-C4422C47D61E}"
 	ProjectSection(SolutionItems) = preProject
 		db\migration\V1__tabelas.sql = db\migration\V1__tabelas.sql
+		db\migration\V2__usuario_salt.sql = db\migration\V2__usuario_salt.sql
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "flyway", "flyway", "{79E893E2-DBCB-466C-BBE3-61B0B2A42C81}"
@@ -32,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Itens", "Solution 
 		.gitignore = .gitignore
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossCutting", "src\CrossCutting\CrossCutting.csproj", "{6C812955-A3D5-4801-A5D3-E787A4C5994B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +62,10 @@ Global
 		{9DCBE854-9078-45AA-B822-509558DA2897}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DCBE854-9078-45AA-B822-509558DA2897}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DCBE854-9078-45AA-B822-509558DA2897}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C812955-A3D5-4801-A5D3-E787A4C5994B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C812955-A3D5-4801-A5D3-E787A4C5994B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C812955-A3D5-4801-A5D3-E787A4C5994B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C812955-A3D5-4801-A5D3-E787A4C5994B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +78,7 @@ Global
 		{9DCBE854-9078-45AA-B822-509558DA2897} = {2607E4D1-8918-4F9B-930E-9819F69CD6B9}
 		{1292B17C-5CD6-4781-8027-C4422C47D61E} = {30600A95-7717-4C91-8F2C-7C282BEDA276}
 		{79E893E2-DBCB-466C-BBE3-61B0B2A42C81} = {30600A95-7717-4C91-8F2C-7C282BEDA276}
+		{6C812955-A3D5-4801-A5D3-E787A4C5994B} = {2607E4D1-8918-4F9B-930E-9819F69CD6B9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B8DFA6BB-DEC2-4979-B62C-754A018D7206}

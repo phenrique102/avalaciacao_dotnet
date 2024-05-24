@@ -40,10 +40,13 @@ namespace Infrastructure.Services
 
         private IEnumerable<Profile> LoadProfiles()
         {
-            return new List<Profile>
-            {
-                new UsuarioProfile()
-            };
+            return
+            [
+                new UsuarioProfile(),
+                new AutenticacaoProfile(),
+                new PlanoProfile(),
+                new AlunoProfile()
+            ];
         }
     }
 }

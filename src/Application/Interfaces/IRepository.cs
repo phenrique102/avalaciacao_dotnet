@@ -4,5 +4,7 @@
     {
         void Add(T entity);
         IEnumerable<T> GetAll();
+        T GetById(int id);
+        void Update(T entity);
     }
 }

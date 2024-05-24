@@ -17,6 +17,8 @@ namespace Infrastructure.DependencyInjection
             services.AddSingleton<IRepository<Usuario>, Repository<Usuario>>();
 
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<IPlanoRepository, PlanoRepository>();
+            services.AddScoped<IAlunoRepository, AlunoRepository>();
         }
     }
 }

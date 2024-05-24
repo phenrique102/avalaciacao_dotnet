@@ -14,14 +14,24 @@ namespace Infrastructure.Repositories
             bancoDadosRepository.Inicializar();
         }
 
-        public void Add(T entity)
+        public virtual void Add(T entity)
         {
             _connection.Insert(entity);
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return _connection.GetAll<T>();
+        }
+
+        public virtual T GetById(int id)
+        {
+            return _connection.Get<T>(id);
+        }
+
+        public void Update(T entity)
+        {
+            _connection.Update(entity);
         }
     }
 }
