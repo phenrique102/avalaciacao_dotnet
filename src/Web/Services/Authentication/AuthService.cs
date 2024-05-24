@@ -19,7 +19,6 @@ namespace Web.Services.Authentication
 
                 var responseMessage = await httpClient.PostAsync("api/usuario/login", requestContent);
                 var loginResultJson = JsonSerializer.Deserialize<LoginResult>(await responseMessage.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
                 if (!responseMessage.IsSuccessStatusCode)
                 {
                     return loginResultJson;
@@ -34,9 +33,9 @@ namespace Web.Services.Authentication
 
                 return loginResultJson;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
 

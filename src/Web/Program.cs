@@ -11,7 +11,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddHttpClient("ApiAcademia", options =>
 {
-    options.BaseAddress = new Uri("https://localhost:51429/");
+    options.BaseAddress = new Uri("https://localhost:63837/");
 });
 
 builder.Services.AddAuthorizationCore();

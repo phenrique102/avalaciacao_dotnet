@@ -20,7 +20,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "migration", "migration", "{1292B17C-5CD6-4781-8027-C4422C47D61E}"
 	ProjectSection(SolutionItems) = preProject
 		db\migration\V1__tabelas.sql = db\migration\V1__tabelas.sql
-		db\migration\V2__usuario_salt.sql = db\migration\V2__usuario_salt.sql
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "flyway", "flyway", "{79E893E2-DBCB-466C-BBE3-61B0B2A42C81}"

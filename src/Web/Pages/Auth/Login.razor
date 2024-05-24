@@ -1,0 +1,57 @@
+﻿@page "/login"
+@inject IAuthService AuthService
+@inject NavigationManager NavigationManager
+
+@if (@MostrarErros)
+{
+    <MessageDisplay Message="@Erro" ClassMessage="error-message btn-btn alert-danger" />
+}
+<div class="card">
+    <div class="card-body">
+        <h3 class="card-title">Login Academia</h3>
+        <EditForm Model="loginModel" OnValidSubmit="HandleLogin">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form-group mt-2">
+                <label for="email">E-mail</label>
+                <InputText id="email" placeholder="Informe o e-mail" class="form-control" @bind-Value="loginModel.DsEmail" />
+                <ValidationMessage For="@(() => loginModel.DsEmail)" />
+            </div>
+            <div class="form-group mt-2">
+                <label for="senha">Senha</label>
+                <InputText type="password" placeholder="Informe a senha" id="senha" class="form-control" @bind-Value="loginModel.DsSenha" />
+                <ValidationMessage For="@(() => loginModel.DsSenha)" />
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Entrar</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private LoginModel loginModel = new LoginModel();
+    private bool MostrarErros = false;
+    private string Erro = string.Empty;
+
+    private async Task HandleLogin()
+    {
+        try
+        {
+            var result = await AuthService.Login(loginModel);
+            if (string.IsNullOrEmpty(result.Message))
+            {
+                NavigationManager.NavigateTo("/");
+            }
+            else
+            {
+                Erro = result.Message;
+                MostrarErros = true;
+            }
+        }
+        catch (Exception ex)
+        {
+            Erro = ex.Message;
+            MostrarErros = true;
+        }
+    }
+}
