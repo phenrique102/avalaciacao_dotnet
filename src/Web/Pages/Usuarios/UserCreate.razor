@@ -1,0 +1,67 @@
+﻿@page "/createuser"
+@inject IUsuarioService UsuarioService
+@inject NavigationManager NavigationManager
+
+@if (@MostrarErros)
+{
+    <MessageDisplay Message="@Erro" ClassMessage="error-message btn-btn alert-danger" />
+}
+<div class="card">
+    <div class="card-body">
+        <h3 class="card-title">Criação de usuário</h3>
+        <EditForm Model="usuarioModel" OnValidSubmit="HandleCreateUser">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form-group mt-2">
+                <label for="nome">Nome</label>
+                <InputText id="nome" placeholder="Informe o nome" class="form-control" @bind-Value="usuarioModel.DsNome" />
+                <ValidationMessage For="@(() => usuarioModel.DsNome)" />
+            </div>
+            <div class="form-group mt-2">
+                <label for="email">E-mail</label>
+                <InputText id="email" placeholder="Informe o e-mail" class="form-control" @bind-Value="usuarioModel.DsEmail" />
+                <ValidationMessage For="@(() => usuarioModel.DsEmail)" />
+            </div>
+            <div class="form-group mt-2">
+                <label for="senha">Senha</label>
+                <InputText type="password" placeholder="Informe a senha" id="senha" class="form-control" @bind-Value="usuarioModel.DsSenha" />
+                <ValidationMessage For="@(() => usuarioModel.DsSenha)" />
+            </div>
+            <div class="form-group mt-2">
+                <label for="confirmacao">Confirmação</label>
+                <InputText type="password" placeholder="Informe a mesma senha para confirmação" id="confirmacao" class="form-control" @bind-Value="usuarioModel.DsSenhaConfirmacao" />
+                <ValidationMessage For="@(() => usuarioModel.DsSenhaConfirmacao)" />
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Criar</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private UsuarioModel usuarioModel = new UsuarioModel();
+    private bool MostrarErros = false;
+    private string Erro = string.Empty;
+
+    private async Task HandleCreateUser()
+    {
+        try
+        {
+            var result = await UsuarioService.RegistrarUsuarioInterno(new RegistrarUsuarioInternoInputModel { DsNome = usuarioModel.DsNome, DsEmail = usuarioModel.DsEmail, DsSenha = usuarioModel.DsSenha });
+            if (string.IsNullOrEmpty(result.Message))
+            {
+                NavigationManager.NavigateTo("/login");
+            }
+            else
+            {
+                Erro = result.Message;
+                MostrarErros = true;
+            }
+        }
+        catch (Exception ex)
+        {
+            Erro = ex.Message;
+            MostrarErros = true;
+        }
+    }
+}

@@ -1,4 +1,4 @@
-﻿using Web.Models;
+﻿using Web.Models.Login;
 
 namespace Web.Services.Authentication
 {
