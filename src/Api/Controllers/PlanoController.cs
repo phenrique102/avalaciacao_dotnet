@@ -33,13 +33,25 @@ namespace Api.Controllers
         [HttpGet("obter-plano-por-identificado")]
         public IActionResult ObterPlanoPorIdentificado([FromQuery] int idPlano)
         {
-            return Ok(obterPlanoPorIdentificadorQuerie.Execute(idPlano));
+            var plano = obterPlanoPorIdentificadorQuerie.Execute(idPlano);
+            if (plano == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(plano);
         }
 
         [HttpGet("obter-todos-planos")]
         public IActionResult ObterTodosPlanos()
         {
-            return Ok(obterTodosPlanosQuerie.Execute());
+            var planos = obterTodosPlanosQuerie.Execute();
+            if (planos == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(planos);
         }
     }
 }

@@ -33,13 +33,25 @@ namespace Api.Controllers
         [HttpGet("obter-aluno-por-identificador")]
         public IActionResult ObterAlunoPorIdentificador([FromQuery] int idAluno)
         {
-            return Ok(obterAlunoPorIdentificadorQuerie.Execute(idAluno));
+            var aluno = obterAlunoPorIdentificadorQuerie.Execute(idAluno);
+            if (aluno == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(aluno);
         }
 
         [HttpGet("obter-todos-alunos")]
         public IActionResult ObterTodosAlunos()
         {
-            return Ok(obterTodosAlunosQuerie.Execute());
+            var alunos = obterTodosAlunosQuerie.Execute();
+            if (alunos == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(alunos);
         }
     }
 }
