@@ -1,7 +1,106 @@
 ﻿@page "/planos"
+@inject NavigationManager NavigationManager
+@inject IPlanoService PlanoService
+
+@if (@MostrarErros)
+{
+    <MessageDisplay Message="@Erro" ClassMessage="error-message btn-btn alert-danger" />
+}
 
 <h3>Planos</h3>
 
-@code {
+<div class="row">
+    <div class="col-md-12">
+        <a class="btn btn-primary btn-lg" href="planos/create">Criar Plano</a>
+    </div>
+</div>
 
+<div class="row">
+    <div class="col-md-12">
+        @if (planosModel != null && planosModel.Count() > 0)
+        {
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <td>Ações</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var plano in planosModel)
+                    {
+                        <tr>
+                            <td>@plano.NoPlano</td>
+                            <td>@plano.DsPlano</td>
+                            <td>
+                                <a class="btn btn-primary" href="planos/edit/@plano.IdPlano">Editar</a>
+                                <a class="btn btn-danger" @onclick="@(() => ExcluirPlano(@plano.IdPlano))">Excluir</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>Nenhum plano encontrado</p>
+        }
+    </div>
+</div>
+
+
+@code {
+    [CascadingParameter] protected Task<AuthenticationState>? AuthStat { get; set; }
+    IEnumerable<PlanoModel>? planosModel;
+    private bool MostrarErros = false;
+    private string Erro = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = (await AuthStat).User;
+        if (user != null && user.Identity != null && !user.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("/login");
+        }
+        else
+        {
+            await CarregaPlanos();
+        }
+    }
+
+    private async Task ExcluirPlano(int id)
+    {
+        try
+        {
+            PlanoService.ApagarPlano(id);
+            await CarregaPlanos();
+        }
+        catch (Exception ex)
+        {
+            Erro = ex.Message;
+            MostrarErros = true;
+        }
+    }
+
+    private async Task CarregaPlanos()
+    {
+        try
+        {
+            var planosService = await PlanoService.ObterTodosPlanos();
+            if (planosService != null)
+            {
+                planosModel = planosService.Select(x => new PlanoModel { IdPlano = x.IdPlano, NoPlano = x.NoPlano, DsPlano = x.DsPlano }).ToList();
+            }
+            else
+            {
+                planosModel = new List<PlanoModel>();
+            }
+        }
+        catch (Exception ex)
+        {
+            Erro = ex.Message;
+            MostrarErros = true;
+        }
+    }
 }

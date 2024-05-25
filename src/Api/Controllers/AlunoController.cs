@@ -1,4 +1,5 @@
-﻿using Application.Alunos.Commands.AtualizaAlunoComPlano;
+﻿using Application.Alunos.Commands.ApagarAlunoComPlano;
+using Application.Alunos.Commands.AtualizaAlunoComPlano;
 using Application.Alunos.Commands.RegistraAlunoComPlano;
 using Application.Alunos.Queries.ObterAlunoPorIdentificador;
 using Application.Alunos.Queries.ObterTodosAlunos;
@@ -14,7 +15,8 @@ namespace Api.Controllers
         IRegistraAlunoComPlanoCommand registraAlunoComPlanoCommand, 
         IAtualizaAlunoComPlanoCommand atualizaAlunoComPlanoCommand, 
         IObterAlunoPorIdentificadorQuerie obterAlunoPorIdentificadorQuerie,
-        IObterTodosAlunosQuerie obterTodosAlunosQuerie) : Controller
+        IObterTodosAlunosQuerie obterTodosAlunosQuerie,
+        IApagarAlunoComPlanoCommand apagarAlunoComPlanoCommand) : Controller
     {
         [HttpPost("registra-aluno-com-plano")]
         public IActionResult RegistraAlunoComPlano([FromBody] RegistraAlunoComPlanoInputModel inputModel)
@@ -52,6 +54,13 @@ namespace Api.Controllers
             }
 
             return Ok(alunos);
+        }
+
+        [HttpDelete("apagar-aluno-com-plano/{id}")]
+        public IActionResult ApagarAlunoComPlano([FromRoute] int id)
+        {
+            apagarAlunoComPlanoCommand.Execute(id);
+            return NoContent();
         }
     }
 }

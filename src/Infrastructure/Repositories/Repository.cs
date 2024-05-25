@@ -19,6 +19,11 @@ namespace Infrastructure.Repositories
             _connection.Insert(entity);
         }
 
+        public void Delete(T entity)
+        {
+            _connection.Delete(entity);
+        }
+
         public virtual IEnumerable<T> GetAll()
         {
             return _connection.GetAll<T>();

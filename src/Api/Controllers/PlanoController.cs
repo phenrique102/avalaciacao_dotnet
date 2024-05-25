@@ -1,4 +1,5 @@
-﻿using Application.Planos.Commands.AtualizarPlanoSimples;
+﻿using Application.Planos.Commands.ApagarPlanoSimples;
+using Application.Planos.Commands.AtualizarPlanoSimples;
 using Application.Planos.Commands.RegistraPlanoSimples;
 using Application.Planos.Queries.ObterPlanoPorIdentificador;
 using Application.Planos.Queries.ObterTodosPlanos;
@@ -14,7 +15,8 @@ namespace Api.Controllers
         IRegistraPlanoSimplesCommand registraPlanoSimplesCommand, 
         IAtualizarPlanoSimplesCommand atualizarPlanoSimplesCommand, 
         IObterPlanoPorIdentificadorQuerie obterPlanoPorIdentificadorQuerie,
-        IObterTodosPlanosQuerie obterTodosPlanosQuerie) : Controller
+        IObterTodosPlanosQuerie obterTodosPlanosQuerie,
+        IApagarPlanoSimplesCommand apagarPlanoSimplesCommand) : Controller
     {
         [HttpPost("registra-plano-simples")]
         public IActionResult RegistraPlanoSimples([FromBody] RegistraPlanoSimplesInputModel inputModel)
@@ -52,6 +54,13 @@ namespace Api.Controllers
             }
 
             return Ok(planos);
+        }
+
+        [HttpDelete("apagar-plano-simples/{id}")]
+        public IActionResult ApagarPlanoSimples([FromRoute] int id)
+        {
+            apagarPlanoSimplesCommand.Execute(id);
+            return NoContent();
         }
     }
 }

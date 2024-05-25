@@ -1,8 +1,10 @@
-﻿using Application.Alunos.Commands.AtualizaAlunoComPlano;
+﻿using Application.Alunos.Commands.ApagarAlunoComPlano;
+using Application.Alunos.Commands.AtualizaAlunoComPlano;
 using Application.Alunos.Commands.RegistraAlunoComPlano;
 using Application.Alunos.Queries.ObterAlunoPorIdentificador;
 using Application.Alunos.Queries.ObterTodosAlunos;
 using Application.Interfaces;
+using Application.Planos.Commands.ApagarPlanoSimples;
 using Application.Planos.Commands.AtualizarPlanoSimples;
 using Application.Planos.Commands.RegistraPlanoSimples;
 using Application.Planos.Queries.ObterPlanoPorIdentificador;
@@ -32,6 +34,8 @@ namespace Infrastructure.DependencyInjection
             services.AddScoped<IObterAlunoPorIdentificadorQuerie, ObterAlunoPorIdentificadorQuerie>();
             services.AddScoped<IObterTodosPlanosQuerie, ObterTodosPlanosQuerie>();
             services.AddScoped<IObterTodosAlunosQuerie, ObterTodosAlunosQuerie>();
+            services.AddScoped<IApagarPlanoSimplesCommand, ApagarPlanoSimplesCommand>();
+            services.AddScoped<IApagarAlunoComPlanoCommand, ApagarAlunoComPlanoCommand>();
         }
     }
 }
